@@ -167,9 +167,9 @@ merge.groups = function(timed_tree, metadata, structural_splits = NULL, initial_
   
   ## From the above columns, create new labels: 
   # Group_nodes: which nodes were included in that group
-  metadata_tmp$group_nodes = apply(metadata_tmp[,which(is.na(match(colnames(metadata_tmp), splits)) == F)], MARGIN = 1, function(x)paste0(x,collapse = '_'))
+  metadata_tmp$group_nodes = apply(as.matrix(metadata_tmp[,which(is.na(match(colnames(metadata_tmp), splits)) == F)]), MARGIN = 1, function(x)paste0(x,collapse = '_'))
   # Group: just a numbering of groups
-  metadata_tmp$group = as.numeric(factor(apply(metadata_tmp[,which(is.na(match(colnames(metadata_tmp), splits)) == F)] == 0, MARGIN = 1, function(x)paste0(x,collapse = '_'))))
+  metadata_tmp$group = as.numeric(factor(apply(as.matrix(metadata_tmp[,which(is.na(match(colnames(metadata_tmp), splits)) == F)] == 0), MARGIN = 1, function(x)paste0(x,collapse = '_'))))
   root = as.character(max(metadata_tmp$group))
   if(is.null(structural_splits) == F){
     structural_roots=as.character(seq(as.numeric(root)-length(structural_splits),as.numeric(root)-1))
@@ -205,7 +205,7 @@ merge.groups = function(timed_tree, metadata, structural_splits = NULL, initial_
   if(length(years) == 1){
     tmp = names(which(length(which((freq_time>group_freq_threshold) == 0)) == length(years)))
   }else{
-    tmp = names(which(apply(freq_time>group_freq_threshold, MARGIN = 1, function(x)length(which(x == 0))) == length(years)))
+    tmp = names(which(apply(as.matrix(freq_time>group_freq_threshold), MARGIN = 1, function(x)length(which(x == 0))) == length(years)))
   }
   if(min(count_overall) < group_count_threshold){
     # By count
