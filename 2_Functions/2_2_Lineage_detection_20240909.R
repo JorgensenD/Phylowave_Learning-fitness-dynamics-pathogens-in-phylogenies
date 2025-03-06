@@ -294,9 +294,9 @@ merge.groups = function(timed_tree, metadata, structural_splits = NULL, initial_
     
     # Collapse that edge (i.e. remove node tmp[2])
     tree_tmp$edge[which(tree_tmp$edge[,1] == tmp[2]),1] = tmp[1]
-    tree_tmp$edge = tree_tmp$edge[-to_remove,]
-    edge_group = edge_group[-to_remove,]
-    edge_group_nodes = edge_group_nodes[-to_remove,]
+    tree_tmp$edge = tree_tmp$edge[-to_remove, , drop = F]
+    edge_group = edge_group[-to_remove, , drop = F]
+    edge_group_nodes = edge_group_nodes[-to_remove, , drop = F]
     
     # Next edge to remove: edges where both nodes are from the same group
     to_remove = which(edge_group[,1] - edge_group[,2] == 0)[1]
