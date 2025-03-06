@@ -175,7 +175,7 @@ compute.timescale=function(genome_length, mutation_rate, time_window, Ne=1E5, r_
   wind=c()
   for (k in 1:length(t_seq)){#for each timescale
     b=b_seq[k]
-    index_constant_pop = theoretical_index(b, genome_length, mu, Ne, times)
+    index_constant_pop = theoretical_index(b, genome_length, mutation_rate, Ne, times)
     len_wind=5
     linear_model=lm(log(index_constant_pop[1:len_wind])~times[1:len_wind])
     R_2=summary(linear_model)$r.squared
